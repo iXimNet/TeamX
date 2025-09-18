@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProjectBoardPage from './pages/ProjectBoardPage';
 import ProjectWBSPage from './pages/ProjectWBSPage';
+import ProjectGanttPage from './pages/ProjectGanttPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route index element={<DashboardPage />} />
             <Route path="projects/:projectId/board" element={<ProjectBoardPage />} />
             <Route path="projects/:projectId/wbs" element={<ProjectWBSPage />} />
+            <Route path="projects/:projectId/gantt" element={<ProjectGanttPage />} />
           </Route>
         </Route>
 

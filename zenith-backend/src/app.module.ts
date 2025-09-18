@@ -11,6 +11,8 @@ import { WorkItem } from './work-items/entities/work-item.entity';
 import { WorkItemsModule } from './work-items/work-items.module';
 import { Comment } from './comments/entities/comment.entity';
 import { CommentsModule } from './comments/comments.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     WorkItemsModule,
     CommentsModule,
+    NotificationsModule,
+    DashboardModule,
   ],
   controllers: [],
   providers: [],

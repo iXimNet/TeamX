@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import * as authService from '../services/authService';
 import api from '../services/api';
+import { notification } from 'antd';
 import { LoginCredentials, RegisterData, User } from '../types';
+import { socketService } from '../services/socketService';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -28,6 +30,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const decodedUser = jwtDecode<User>(token);
         setUser(decodedUser);
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        // Connect to WebSocket and set up listener
+        socketService.connect(token);
+        socketService.on('notification', (data: { message: string }) => {
+          notification.info({
+            message: 'New Notification',
+            description: data.message,
+          });
+        });
+
       } catch (error) {
         console.error("Invalid token", error);
         setUser(null);
@@ -44,6 +56,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const decodedUser = jwtDecode<User>(access_token);
       api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       setUser(decodedUser);
+
+      // Connect to WebSocket on login
+      socketService.connect(access_token);
+
       navigate('/');
     } catch (error) {
       console.error('Authentication failed:', error);
@@ -60,6 +76,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
+    socketService.disconnect();
     setUser(null);
     localStorage.removeItem('token');
     delete api.defaults.headers.common['Authorization'];

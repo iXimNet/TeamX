@@ -6,6 +6,7 @@ import {
   ProjectOutlined,
   LogoutOutlined,
   PartitionOutlined,
+  BarChartOutlined,
 } from '@ant-design/icons';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -30,7 +31,10 @@ const AppLayout: React.FC = () => {
           <Menu.Item key="3" icon={<PartitionOutlined />}>
             <Link to="/projects/1/wbs">WBS View</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<LogoutOutlined />} onClick={logout}>
+          <Menu.Item key="4" icon={<BarChartOutlined />}>
+            <Link to="/projects/1/gantt">Gantt Chart</Link>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<LogoutOutlined />} onClick={logout}>
             Logout
           </Menu.Item>
         </Menu>

@@ -96,6 +96,7 @@ const WorkItemDetailModal: React.FC<Props> = ({ workItemId, onClose, onUpdate })
                   <Button htmlType="submit" loading={commenting} type="primary">
                     Post Comment
                   </Button>
+                  <Text type="secondary" style={{ marginLeft: 16 }}>You can @-mention users by their email.</Text>
                 </Form.Item>
               </Form>
             </Col>
